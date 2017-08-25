@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 #include "player.h"
-#include "block.h"
+/* #include "block.h" */
 
 using namespace std;
 
@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 
 	player pmain;
 	block barr(10,600 - 50);
+	block barr1(250, 600 - 50);
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
@@ -57,11 +58,14 @@ int main(int argc, char *argv[])
 		}
 
 		pmain.move();
+		if(pmain.on_block(barr)) pmain.set_falling(false);
+		if(pmain.on_block(barr1)) pmain.set_falling(false);
 
 		SDL_RenderClear(ren);
 
 		SDL_RenderDrawRect(ren, pmain.get_drect());
 		SDL_RenderDrawRect(ren, barr.get_drect());
+		SDL_RenderDrawRect(ren, barr1.get_drect());
 
 		SDL_RenderPresent(ren);
 		SDL_Delay(1000/60);

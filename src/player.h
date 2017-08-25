@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
 
+#include "block.h"
+
 class player
 {
 
@@ -10,6 +12,8 @@ class player
 		void move(void);
 		void set_status(player::status);
 		void jump(void);
+		void set_falling(bool);
+		bool on_block(block);
 		
 	private:
 		SDL_Rect srect, drect;
