@@ -14,10 +14,13 @@ class player
 		void jump(void);
 		void set_falling(bool);
 		bool on_block(block);
+		void set_running(bool);
+		int speed;
 		
 	private:
 		SDL_Rect srect, drect;
 		status cstat;
 		int grav;
 		bool falling;
+		bool running;
 };

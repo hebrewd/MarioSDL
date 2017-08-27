@@ -40,6 +40,9 @@ int main(int argc, char *argv[])
 					case SDLK_LALT:
 						pmain.jump();
 						break;
+					case SDLK_LCTRL:
+						pmain.set_running(true);
+						break;
 				}
 			}
 			else if(e.type == SDL_KEYUP)
@@ -52,6 +55,9 @@ int main(int argc, char *argv[])
 					case SDLK_RIGHT:
 						pmain.set_status(player::stand_still);
 						break;
+					case SDLK_LCTRL:
+						pmain.set_running(false);
+
 				}
 			}
 
@@ -59,7 +65,8 @@ int main(int argc, char *argv[])
 
 		pmain.move();
 		if(pmain.on_block(barr)) pmain.set_falling(false);
-		if(pmain.on_block(barr1)) pmain.set_falling(false);
+		else if(pmain.on_block(barr1)) pmain.set_falling(false);
+		else pmain.set_falling(true);
 
 		SDL_RenderClear(ren);
 

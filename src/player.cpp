@@ -10,6 +10,8 @@ player::player()
 	cstat = stand_still;
 	grav = 0;
 	falling = true;
+	running = false;
+	speed = 0;
 }
 
 SDL_Rect *player::get_drect()
@@ -22,15 +24,17 @@ void player::move()
 	switch(cstat)
 	{
 		case move_left:
-			drect.x-=5;
+			drect.x-=5 + speed;
 			break;
 		case move_right:
-			drect.x+=5;
+			drect.x+=5 + speed;
 			break;
 	}
 	drect.y += grav;
 	if(falling) grav+=1;
 	else grav=0;
+	if(running && (speed<=5)) speed += 1;
+	if(!running) speed = 0;
 }
 void player::set_status(player::status s1)
 {
@@ -53,4 +57,8 @@ bool player::on_block(block b)
 		if((drect.y + drect.h + grav) >= b.get_drect()->y)
 			return true;
 	return false;
+}
+void player::set_running(bool flag)
+{
+	running = flag;
 }
