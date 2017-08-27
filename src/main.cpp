@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "player.h"
 /* #include "block.h" */
@@ -12,6 +13,9 @@ int main(int argc, char *argv[])
 	SDL_Window *win;
 	SDL_Renderer *ren;
 
+	SDL_Surface *surf;
+	SDL_Texture *mario;
+
 	player pmain;
 	block barr(10,600 - 50);
 	block barr1(250, 600 - 50);
@@ -20,6 +24,10 @@ int main(int argc, char *argv[])
 
 	win = SDL_CreateWindow("Mario", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_OPENGL);
 	ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+	IMG_Init(IMG_INIT_PNG);
+	surf = IMG_Load("img/mario.png");
+	mario = SDL_CreateTextureFromSurface(ren, surf);
+	SDL_Rect tmp = {10, 0, 16, 32};
 
 	while(running)
 	{
@@ -68,9 +76,12 @@ int main(int argc, char *argv[])
 		else if(pmain.on_block(barr1)) pmain.set_falling(false);
 		else pmain.set_falling(true);
 
+		SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
 		SDL_RenderClear(ren);
 
-		SDL_RenderDrawRect(ren, pmain.get_drect());
+		/*SDL_RenderDrawRect(ren, pmain.get_drect());*/
+		SDL_RenderCopy(ren, mario, &tmp, pmain.get_drect());
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 		SDL_RenderDrawRect(ren, barr.get_drect());
 		SDL_RenderDrawRect(ren, barr1.get_drect());
 

@@ -55,7 +55,10 @@ bool player::on_block(block b)
 {
 	if(((drect.x + drect.w) >= b.get_drect()->x) && (drect.x <= (b.get_drect()->x + b.get_drect()->w)))
 		if((drect.y + drect.h + grav) >= b.get_drect()->y)
+		{
+			if((drect.y + drect.h + grav) > b.get_drect()->y) drect.y = b.get_drect()->y - drect.h - grav;
 			return true;
+		}
 	return false;
 }
 void player::set_running(bool flag)
