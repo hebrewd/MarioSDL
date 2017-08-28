@@ -14,11 +14,6 @@ player::player()
 	speed = 0;
 }
 
-SDL_Rect *player::get_drect()
-{
-	return &drect;
-}
-
 void player::move()
 {
 	switch(cstat)

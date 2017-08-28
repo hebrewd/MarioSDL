@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-std=c++11 -Wall
 CLIBS=-lSDL2 -lSDL2_image
-OBJ=main.o player.o block.o
+OBJ=main.o player.o block.o gameobject.o
 DIR=$(addprefix dist/,$(OBJ))
 
 mario: $(DIR)

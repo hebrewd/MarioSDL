@@ -1,9 +1,9 @@
 #include <SDL2/SDL.h>
 
-class block
+#include "gameobject.h"
+
+class block : public gameobject
 {
-	SDL_Rect srect, drect;
 	public:
 		block(int, int);
-		SDL_Rect *get_drect();
 };
