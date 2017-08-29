@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <iostream>
 
 #include "player.h"
 
@@ -51,9 +52,20 @@ bool player::on_block(block b)
 	if(((drect.x + drect.w) >= b.get_drect()->x) && (drect.x <= (b.get_drect()->x + b.get_drect()->w)))
 		if((drect.y + drect.h + grav) >= b.get_drect()->y)
 		{
-			if((drect.y + drect.h + grav) > b.get_drect()->y) drect.y = b.get_drect()->y - drect.h - grav;
+			if(((drect.y + drect.h + grav) > b.get_drect()->y)) drect.y = b.get_drect()->y - drect.h;
 			return true;
 		}
+	return false;
+}
+bool player::hit_block(block b)
+{
+	if(((drect.y + drect.h) > b.get_drect()->y) || (drect.y < (b.get_drect()->y + b.get_drect()->h)))
+		if(((drect.x + drect.w) >= b.get_drect()->x) && (drect.x <= (b.get_drect()->x + b.get_drect()->w)))
+		{
+			std::cout << "hitting a block\n";
+			return true;
+		}
+	std::cout << "Not hitting a block\n";
 	return false;
 }
 void player::set_running(bool flag)

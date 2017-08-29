@@ -16,6 +16,7 @@ class player : public gameobject
 		bool on_block(block);
 		void set_running(bool);
 		int speed;
+		bool hit_block(block);
 		
 	private:
 		status cstat;
