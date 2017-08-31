@@ -72,12 +72,13 @@ int main(int argc, char *argv[])
 		}
 
 		pmain.move();
+		pmain.hit_block(barr);
+		pmain.hit_block(barr1);
 		if(pmain.on_block(barr)) pmain.set_falling(false);
 		else if(pmain.on_block(barr1)) pmain.set_falling(false);
 		else pmain.set_falling(true);
 
-		pmain.hit_block(barr);
-		pmain.hit_block(barr1);
+
 
 		SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
 		SDL_RenderClear(ren);

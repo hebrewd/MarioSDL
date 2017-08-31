@@ -59,13 +59,12 @@ bool player::on_block(block b)
 }
 bool player::hit_block(block b)
 {
-	if(((drect.y + drect.h) > b.get_drect()->y) || (drect.y < (b.get_drect()->y + b.get_drect()->h)))
+	if((((drect.y + drect.h) > b.get_drect()->y) && ((drect.y + drect.h) < (b.get_drect()->y + b.get_drect()->h))) || ((drect.y < (b.get_drect()->y + b.get_drect()->h)) && (drect.y > b.get_drect()->y)))
 		if(((drect.x + drect.w) >= b.get_drect()->x) && (drect.x <= (b.get_drect()->x + b.get_drect()->w)))
 		{
 			std::cout << "hitting a block\n";
 			return true;
 		}
-	std::cout << "Not hitting a block\n";
 	return false;
 }
 void player::set_running(bool flag)
