@@ -12,23 +12,27 @@ player::player()
 	grav = 0;
 	falling = true;
 	running = false;
+	can_move = true;
 	speed = 0;
 }
 
 void player::move()
 {
-	switch(cstat)
+	if(can_move)
 	{
-		case move_left:
-			drect.x-=5 + speed;
-			break;
-		case move_right:
-			drect.x+=5 + speed;
-			break;
+		switch(cstat)
+		{
+			case move_left:
+				drect.x-=5 + speed;
+				break;
+			case move_right:
+				drect.x+=5 + speed;
+				break;
+		}
 	}
-	drect.y += grav;
 	if(falling) grav+=1;
 	else grav=0;
+	drect.y += grav;
 	if(running && (speed<=5)) speed += 1;
 	if(!running) speed = 0;
 }
@@ -52,19 +56,22 @@ bool player::on_block(block b)
 	if(((drect.x + drect.w) >= b.get_drect()->x) && (drect.x <= (b.get_drect()->x + b.get_drect()->w)))
 		if((drect.y + drect.h + grav) >= b.get_drect()->y)
 		{
-			if(((drect.y + drect.h + grav) > b.get_drect()->y)) drect.y = b.get_drect()->y - drect.h;
+			//if(((drect.y + drect.h + grav) > b.get_drect()->y)) drect.y = b.get_drect()->y - drect.h;
+			while((drect.y + drect.h) < b.get_drect()->y)
+				drect.y++;
 			return true;
 		}
 	return false;
 }
 bool player::hit_block(block b)
 {
-	if((((drect.y + drect.h) > b.get_drect()->y) && ((drect.y + drect.h) < (b.get_drect()->y + b.get_drect()->h))) || ((drect.y < (b.get_drect()->y + b.get_drect()->h)) && (drect.y > b.get_drect()->y)))
-		if(((drect.x + drect.w) >= b.get_drect()->x) && (drect.x <= (b.get_drect()->x + b.get_drect()->w)))
-		{
-			std::cout << "hitting a block\n";
-			return true;
-		}
+	if(((drect.x + drect.w) > b.get_drect()->x) && (drect.x <(b.get_drect()->x + b.get_drect()->w)) && ((drect.y + drect.h) > b.get_drect()->y) && (drect.y <(b.get_drect()->y + b.get_drect()->w)))
+	{
+		can_move=false;
+		std::cout << "Touched a block\n";
+		return true;
+	}
+	can_move=true;
 	return false;
 }
 void player::set_running(bool flag)
