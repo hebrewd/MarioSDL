@@ -23,4 +23,5 @@ class player : public gameobject
 		int grav;
 		bool falling;
 		bool running;
+		bool can_move;
 };
