@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('error') {
+    stage('build') {
       steps {
-        sh 'c++ src/main.cpp'
+        sh 'c++ src/main.cpp -lSDL2 -lSDL2_image'
       }
     }
 
