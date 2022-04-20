@@ -9,6 +9,8 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+	// Comment
 	bool running = true;
 	SDL_Window *win;
 	SDL_Renderer *ren;
