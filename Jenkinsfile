@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'c++  src/*.cpp -lSDL2 -lSDL2_image'
+        sh "echo ${env.CHANGE_ID}"
       }
     }
 
